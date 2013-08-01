@@ -6,12 +6,11 @@ You can see the script running <a href="http://codepen.io/ivanbanov/pen/tHlfh" t
 
 ## Installation
 To use the polygonJS you just need add to your project the polygon script and css.
-<br />
-__NOTE__: PolygonJS runs normally just the css code version. The pre-processor LESS is used just for a faster and easily development.
 ```
 <link rel="stylesheet" href="path/polygon.css" />
 <script src="path/polygon.js"></script>
 ```
+__NOTE__: PolygonJS runs normally just the css code version. The pre-processor LESS is used just for a faster and easily development.
 
 ## Usage
 
