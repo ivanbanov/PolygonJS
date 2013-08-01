@@ -1,0 +1,83 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+body {
+  font: 13px/1.4 helvetica, arial;
+}
+.stage {
+  -webkit-perspective: 500;
+  -moz-perspective: 500;
+  perspective: 500;
+}
+.polygon,
+.shape,
+.layer {
+  -webkit-transform-style: preserve-3d;
+  -moz-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+}
+.polygon .shape {
+  position: relative;
+}
+.polygon .shape,
+.polygon .shape .layer,
+.polygon .shape .front,
+.polygon .shape .back {
+  height: 100%;
+}
+.polygon .shape .layer {
+  position: absolute;
+}
+.polygon .shape .layer .front,
+.polygon .shape .layer .back {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+}
+.polygon .shape .layer .back {
+  -webkit-transform: rotateY(180deg) translateZ(1px);
+  -moz-transform: rotateY(180deg) translateZ(1px);
+  transform: rotateY(180deg) translateZ(1px);
+}
+#square,
+#triangle,
+#circle {
+  height: 150px;
+  width: 150px;
+}
+.polygon {
+  -webkit-animation: rotation 10s;
+  -moz-animation: rotation 10s;
+  animation: rotation 10s;
+  margin: 100px auto;
+  height: 150px;
+  width: 150px;
+}
+.polygon .layer {
+  background: #f0f;
+  opacity: 1;
+}
+.polygon .layer .back {
+  background: #0aa;
+}
+@-webkit-keyframes rotation {
+  50% {
+    -webkit-transform: rotateX(90deg) rotateY(360deg) rotateZ(540deg);
+    -moz-transform: rotateX(90deg) rotateY(360deg) rotateZ(540deg);
+    transform: rotateX(90deg) rotateY(360deg) rotateZ(540deg);
+  }
+}
+@-moz-keyframes rotation {
+  50% {
+    -webkit-transform: rotateX(90deg) rotateY(360deg) rotateZ(540deg);
+    -moz-transform: rotateX(90deg) rotateY(360deg) rotateZ(540deg);
+    transform: rotateX(90deg) rotateY(360deg) rotateZ(540deg);
+  }
+}
+keyframes rotation 50% {
+  -webkit-transform: rotateX(90deg) rotateY(360deg) rotateZ(540deg);
+  -moz-transform: rotateX(90deg) rotateY(360deg) rotateZ(540deg);
+  transform: rotateX(90deg) rotateY(360deg) rotateZ(540deg);
+}
