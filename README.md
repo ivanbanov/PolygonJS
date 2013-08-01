@@ -23,5 +23,6 @@ put the script on bottom of your code
 ```
 <script>
   polygon('el', sides);
+  polygon('#square', 4);
 </script>
 ```
