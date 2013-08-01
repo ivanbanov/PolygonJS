@@ -16,8 +16,10 @@ To use the polygonJS you just need add to your project the polygon script and cs
 __HTML__
 ```
 <div id="polygon"></div>
+```
 
-// put the script on bottom of your code
+put the script on bottom of your code
+```
 <script>
   polygon('el', sides);
 </script>
