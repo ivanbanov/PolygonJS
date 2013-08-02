@@ -20,7 +20,7 @@ __HTML__
 ```
 
 __SCRIPT__
-Put the script on bottom of your code.
+<br /> Put the script on bottom of your code.
 ```
 <script>
   //polygon(element, sides);
