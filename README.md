@@ -19,10 +19,11 @@ __HTML__
 <div id="polygon"></div>
 ```
 
-put the script on bottom of your code
+__SCRIPT__
+Put the script on bottom of your code.
 ```
 <script>
-  polygon('el', sides);
+  //polygon(element, sides);
   polygon('#square', 4);
 </script>
 ```
