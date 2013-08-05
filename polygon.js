@@ -52,9 +52,9 @@
 
             // calc width and position of each layer
             layer.style.width = wLayer + '%';
+            layer.style.left = (100 - wLayer) / 2 + '%';
             layer.style.transform = layer.style[prefix + 'Transform'] = 'rotateY(' + (angle * (nS - i + 1)) + 'deg)' +
                                                                         'translateZ(' + (wShape / 2 * Math.cos(Math.PI / nS)) + 'px)';
-            layer.style.left = (100 - wLayer) / 2 + '%';
 
             // insert front/back faces of layer
             layer.innerHTML = '<div class="front"></div><div class="back"></div>';
@@ -72,10 +72,11 @@
 
     function _prefixCSS(prop, val) {
         var style = computedStyle(doc.documentElement, null),
-            pfx = '';
+            pfx,
+            i;
 
         // search specific prefix of browser
-        for (var i in style) {
+        for (i in style) {
             pfx = i.match(/^(moz|webkit|ms)/gi);
 
             if (pfx) {
