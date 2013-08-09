@@ -35,6 +35,9 @@ body {
     .layer {
         position: absolute;
 
+        &.top,
+        &.bottom { width: 100%; }
+
         .front,
         .back {
             position: absolute;
@@ -63,10 +66,8 @@ body {
     width: 150px;
 
     .layer {
-        background: #f0f;
-        opacity: 1;
-
-        .back { background: #0aa; }
+        .front { background: #0af; }
+        .back { background: #f0a; }
     }
 }
 

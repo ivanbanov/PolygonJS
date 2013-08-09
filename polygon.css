@@ -29,6 +29,10 @@ body {
 .polygon .shape .layer {
   position: absolute;
 }
+.polygon .shape .layer.top,
+.polygon .shape .layer.bottom {
+  width: 100%;
+}
 .polygon .shape .layer .front,
 .polygon .shape .layer .back {
   position: absolute;
@@ -51,16 +55,15 @@ body {
   height: 150px;
   width: 150px;
 }
-#square .layer,
-#triangle .layer,
-#circle .layer {
-  background: #f0f;
-  opacity: 1;
+#square .layer .front,
+#triangle .layer .front,
+#circle .layer .front {
+  background: #0af;
 }
 #square .layer .back,
 #triangle .layer .back,
 #circle .layer .back {
-  background: #0aa;
+  background: #f0a;
 }
 @-webkit-keyframes rotation {
   50% {
