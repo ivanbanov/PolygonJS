@@ -1,12 +1,11 @@
-(function(wdw, doc) {
+(function(win, doc) {
     'use strict';
 
     /* ==============================
         DEFAULTS
     ============================== */
 
-    var _plugin = 'polygon',
-        computedStyle = wdw.getComputedStyle;
+    var computedStyle = win.getComputedStyle;
 
     Number.prototype.toFixed = function(n) {
         var fix = Math.pow(10, n || 0);
@@ -14,45 +13,53 @@
     }
 
 
-
     /* ==============================
         CONSTRUCTOR
     ============================== */
 
-    function Plugin(element, nSides, sprite) {
+    function Polygon(element, nSides, sprite) {
         this.el = doc.querySelector(element);
         this.nSides = typeof nSides !== 'number' || nSides < 2 ? 3 : nSides > 360 ? 360 : nSides;
+        this.sprite = sprite;
         this.init();
     }
-
 
 
     /* ==============================
         PUBLIC
     ============================== */
 
-    Plugin.prototype = {
+    Polygon.prototype = {
         init: function() {
-            var el = this.el,
-                nS = this.nSides;
+            this.el.classList.add('polygon');
+            _createShape(this.el, this.nSides);
 
-            el.classList.add('polygon');
-            _createShape(el, nS);
+            if (this.sprite) {
+                this.setSprite(this.sprite);
+            }
         },
 
         setSprite: function(sprite) {
-            // code
+            var layers = this.el.querySelectorAll('.layer'),
+                i = 0;
+
+            for(; i < layers.length; i++) {
+                _setStyle(layers[i], {
+                    'background-image': sprite,
+                    'background-position': (100 / this.nSides * i) + '% 0'
+                }, sprite);
+            }
         }
     }
-
 
 
     /* ==============================
         PRIVATE
     ============================== */
 
+    var
     // create a new shape and append it at target element
-    function _createShape(el, nS) {
+    _createShape = function(el, nS) {
         var content = el.innerHTML,
             angle = 360 / nS,
             shape,
@@ -63,11 +70,11 @@
             hEl = _fixNum(computedStyle(el).height),
             wShape = _fixNum(wEl * Math.sqrt(2)),
             wLayer = _fixNum(Math.sin(Math.PI / nS) * wShape),
-            lLayer = (wEl - wLayer) / 2,
+            lLayer = _fixNum((wEl - wLayer) / 2),
             tzLayer = _fixNum(wShape / 2 * Math.cos(Math.PI / nS)),
             lCovers = _fixNum(-(wShape - wEl) / 2),
             tCovers = _fixNum(-(wShape - hEl) / 2),
-            tzCovers = hEl / 2,
+            tzCovers = _fixNum(hEl / 2),
             triangleFix = nS == 3 ? _fixNum((wShape - (wLayer / 2 * Math.sqrt(3))) / 2) : false,
             i = 1;
 
@@ -78,7 +85,7 @@
         shape = doc.createElement('div');
         shape.classList.add('shape', 'sides-' + nS);
 
-        for (; nS >= i; i++) {
+        for (; i <= nS; i++) {
             // create a new layer
             layer = _createLayer(('l' + i), {
                 'width': wLayer + 'px',
@@ -113,11 +120,11 @@
 
         // insert the content of element at front face of first layer
         shape.querySelector('.front').innerHTML = content;
-    }
+    },
 
-    // classes: string separated with whitespace ' '
+    // classes: string sepa,rated with whitespace ' '
     // style: object with property/value
-    function _createLayer(classes, style) {
+    _createLayer = function(classes, style) {
         var layer = doc.createElement('div'),
             classes = classes.split(' '),
             s;
@@ -128,20 +135,27 @@
             layer.classList.add(value);
         });
 
-        // set style
-        for (s in style) {
-            _setStyle(layer, s, style[s]);
-        }
+        _setStyle(layer, style);
 
         return layer;
-    }
+    },
 
-    function _setStyle(el, prop, val) {
+    _setStyle = function(el, prop, val) {
         // set properties with the specif prefix of browser
-        el.style[prop.toLowerCase()] = el.style[_prefixCSS() + (prop.charAt(0).toUpperCase() + prop.slice(1))] = val;
-    }
+        if (typeof arguments[1] == 'object') {
+            var style= arguments[1],
+                s;
 
-    function _prefixCSS() {
+            // set style
+            for (s in style) {
+                _setStyle(el, s, style[s]);
+            }
+        } else {
+            el.style[prop.toLowerCase()] = el.style[_prefixCSS() + (prop.charAt(0).toUpperCase() + prop.slice(1))] = val;
+        }
+    },
+
+    _prefixCSS = function() {
         var style = computedStyle(doc.documentElement),
             pfx,
             i;
@@ -154,10 +168,10 @@
                 return pfx;
             }
         }
-    }
+    },
 
-    function _fixNum(n) {
-        if (typeof n === 'string') {
+    _fixNum = function(n) {
+        if (!typeof n === 'number') {
             n = parseInt(n);
         }
 
@@ -165,22 +179,20 @@
     }
 
 
-
     /* ==============================
-        GLOBAL
+        GLOBAL API
     ============================== */
 
-    wdw[_plugin] = function() {
+    win.polygon = function() {
         var args = arguments;
 
-        function fn(args) {
-            Plugin.apply(this, args);
+        function polygon(args) {
+            Polygon.apply(this, args);
         }
-        fn.prototype = Plugin.prototype;
+        polygon.prototype = Polygon.prototype;
 
-        new fn(args);
+        return new polygon(args);
     }
-
 
 
 })(window, document);

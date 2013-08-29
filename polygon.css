@@ -27,6 +27,8 @@ body {
   height: 100%;
 }
 .polygon .shape .layer {
+  background-size: cover;
+  background-position: center;
   position: absolute;
 }
 .polygon .shape .layer.top,
