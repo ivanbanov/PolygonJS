@@ -171,7 +171,7 @@
     },
 
     _fixNum = function(n) {
-        if (!typeof n === 'number') {
+        if (typeof n !== 'number') {
             n = parseInt(n);
         }
 
