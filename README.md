@@ -1,4 +1,4 @@
-# PolygonJS v0.1.0
+# PolygonJS v0.2.0
 A script to generate any regular polygon.
 
 ## Live Demo
