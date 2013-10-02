@@ -1,4 +1,4 @@
-(function(win, doc) {
+;(function(win, doc) {
     'use strict';
 
     /* ==============================
@@ -142,8 +142,8 @@
 
     _setStyle = function(el, prop, val) {
         // set properties with the specif prefix of browser
-        if (typeof arguments[1] == 'object') {
-            var style= arguments[1],
+        if (typeof prop === 'object') {
+            var style = prop,
                 s;
 
             // set style
